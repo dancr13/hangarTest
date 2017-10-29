@@ -1,4 +1,5 @@
-#Api Prueb HANGAR#
+Api Prueb HANGAR
+==================
 
 El código en este repositorio es un sitio wordpress, basicamente con dos plugins instaldos.
 1.Plugin WP JSON API
