@@ -222,7 +222,7 @@ function deleteSong($parameters)
   function createSong($parameters)
   {
 
-    $update_success = false;
+    $update_success =array('Message'=>'Error al crear la canción.');
     $url = isset($parameters['url']) ? $parameters['url'] : "Not url";
     $songName = isset($parameters['songname']) ? $parameters['songname'] : "Los pollitos :( ";
     $artistID = isset($parameters['artistid']) ? $parameters['artistid'] : rand(100,10000);
@@ -250,7 +250,7 @@ function deleteSong($parameters)
     
     if(!file_put_contents($pathFile, $currentsongs));
     {
-       $update_success =True;
+       $update_success =array('Message'=>'Canción creada correctamente');
     }
     $response = new WP_REST_Response( $update_success );
     $response->header( 'Access-Control-Allow-Origin', apply_filters( 'giar_access_control_allow_origin', '*' ) );
@@ -264,22 +264,87 @@ function deleteSong($parameters)
     register_rest_route( 'hangar-api/v1', '/song', array(
       'methods' => 'GET',
       'callback' => 'searchsong',
+      'args'                => array(
+        'songname' => array(
+          'required'=> false,
+          'type'        => 'string',
+          'description' => __( 'Nombre de la canción.' ),
+        ),
+        'artistname' => array(
+          'required'=> false,
+          'type'        => 'string',
+          'description' => __( 'Artista de la canción.' ),
+        ),
+        'albumname' => array(
+          'required'=> false,
+          'type'        => 'string',
+          'description' => __( 'Album de la canción.' ),
+        ),
+      ),
     ) );
 
 
     register_rest_route( 'hangar-api/v1', '/song', array(
 			'methods' => 'POST',
-			'callback' =>  'createsong',
+      'callback' =>  'createsong',
+      'args'                => array(
+        'url' => array(
+          'required'=> false,
+          'type'        => 'string',
+          'description' => __( 'URL de la canción.' ),
+        ),
+
+        'songname' => array(
+          'required'=> false,
+          'type'        => 'string',
+          'description' => __( 'Nombre de la canción.' ),
+        ),
+
+        'artistid' => array(
+          'required'=> false,
+          'type'        => 'Integer',
+          'description' => __( 'Id del artista.' ),
+        ),
+        'artistname' => array(
+          'required'=> false,
+          'type'        => 'string',
+          'description' => __( 'Nombre del Artisa.' ),
+        ),
+        'albumid' => array(
+          'required'=> false,
+          'type'        => 'Integer',
+          'description' => __( 'Id del album.' ),
+        ),
+        'albumname' => array(
+          'required'=> false,
+          'type'        => 'string',
+          'description' => __( 'Nombre del album.' ),
+        ),
+      ),
     ) );
 
     register_rest_route( 'hangar-api/v1', '/song', array(
 			'methods' => 'DELETE',
-			'callback' =>  'deleteSong',
+      'callback' =>  'deleteSong',
+      'args'                => array(
+        'Id' => array(
+          'required'=> true,
+          'type'        => 'Int',
+          'description' => __( 'Id de la canción.' ),
+        ),
+      ),
     ) );
     
     register_rest_route( 'hangar-api/v1', '/song', array(
 			'methods' => 'PUT',
-			'callback' =>  'updateSong',
+      'callback' =>  'updateSong',
+      'args'                => array(
+        'Id' => array(
+          'required'=> true,
+          'type'        => 'Int',
+          'description' => __( 'Id de la canción.' ),
+        ),
+      ),
 		) );
 
   } );
