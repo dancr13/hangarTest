@@ -89,7 +89,6 @@
 
     $albumname = $parameters['albumname'];
     $resultByAlbumName = getSongByAlbumName($albumname);
-
     array_push($results, $resultByAlbumName);
   }
 
@@ -106,6 +105,12 @@
 }
 function updateSong($parameters)
 {
+  if(!isset($parameters['id']) || empty($parameters['id']) )
+  {
+    return array('Error'=>'El id es requerido' );
+
+  }
+
   $songId= (int)$parameters['id'];
   $songsList= getJsonFromFile();
   $pathFile = plugin_dir_path( __FILE__ ).'songs.json';
@@ -167,6 +172,11 @@ function updateSong($parameters)
 
 function deleteSong($parameters)
 {
+  if(!isset($parameters['id']) || empty($parameters['id']) )
+  {
+    return array('Error'=>'El id es requerido' );
+    
+  }
   $songId= (int)$parameters['id'];
   $songsList= getJsonFromFile();
   $pathFile = plugin_dir_path( __FILE__ ).'songs.json';
