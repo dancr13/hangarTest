@@ -327,7 +327,7 @@ function deleteSong($parameters)
 			'methods' => 'DELETE',
       'callback' =>  'deleteSong',
       'args'                => array(
-        'Id' => array(
+        'id' => array(
           'required'=> true,
           'type'        => 'Int',
           'description' => __( 'Id de la canción.' ),
@@ -339,7 +339,7 @@ function deleteSong($parameters)
 			'methods' => 'PUT',
       'callback' =>  'updateSong',
       'args'                => array(
-        'Id' => array(
+        'id' => array(
           'required'=> true,
           'type'        => 'Int',
           'description' => __( 'Id de la canción.' ),
